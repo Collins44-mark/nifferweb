@@ -255,7 +255,7 @@ Please confirm availability. Thank you.`;
             ${cart.map(item => `
               <div class="glass-card rounded-2xl p-4 md:p-6 flex gap-4">
                 <a href="product.html?id=${item.id}" class="w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden flex-shrink-0">
-                  <img src="${item.images[0]}" alt="${item.name}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">
+                  <img src="${item.images[0]}" alt="${item.name}" class="w-full h-full object-cover">
                 </a>
                 <div class="flex-1 min-w-0">
                   <a href="product.html?id=${item.id}" class="font-display font-semibold mb-1 block hover:opacity-70">${item.name}</a>

@@ -63,14 +63,6 @@ function renderStars(rating) {
   return Array(5).fill(0).map((_, i) => i < rating ? '★' : '☆').join('');
 }
 
-const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=600&fit=crop';
-function initProductImageFallback() {
-  document.querySelectorAll('img[src^="images/"]').forEach(img => {
-    img.onerror = function() { this.onerror = null; this.src = PLACEHOLDER_IMG; };
-  });
-}
-document.addEventListener('DOMContentLoaded', initProductImageFallback);
-
 function closeMobileSearch() {
   const el = document.getElementById('search-results-mobile');
   const menu = document.getElementById('mobile-menu');
@@ -84,7 +76,7 @@ function renderSearchResults(results, resultsEl, isMobile) {
   } else {
     resultsEl.innerHTML = results.map((p, i) => `
       <a href="product.html?id=${p.id}" ${isMobile ? 'onclick="closeMobileSearch()"' : ''} class="search-result-item" style="animation-delay: ${i * 0.05}s">
-        <img src="${p.images[0]}" alt="" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">
+        <img src="${p.images[0]}" alt="">
         <div class="search-result-info">
           <p class="search-result-name">${p.name}</p>
           <p class="search-result-category">${p.category}</p>

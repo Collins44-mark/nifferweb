@@ -39,8 +39,7 @@ const CATEGORIES = [
 ];
 
 const TESTIMONIALS = [
-  { name: 'Jessica Chen', rating: 5, text: 'Niffer Mall has everything I love in one place. The quality is incredible and shipping was so fast!', product: 'SkinLuxy Body Oil', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face' },
-  { name: 'Marie Laurent', rating: 5, text: 'The Pashmina is perfection. Beautiful quality and the material is premium.', product: 'Pashmina', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face' },
-  { name: 'Sophia Williams', rating: 5, text: 'Discovered so many new brands here. Everything from cosmetics to fragrance in one stunning platform!', product: 'Khamrah', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face' },
-  { name: 'Emma Rodriguez', rating: 5, text: 'Customer service was amazing. They helped me find the perfect fragrance for my collection.', product: 'YARA', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face' }
+  { name: 'Neema Mwangi', rating: 5, text: 'Niffer Mall has everything I love in one place. The quality is incredible and shipping was so fast!', product: 'SkinLuxy Body Oil', image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&h=250&fit=crop' },
+  { name: 'Amina Hassan', rating: 5, text: 'The Pashmina is perfection. Beautiful quality and the material is premium.', product: 'Pashmina', image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=200&h=250&fit=crop' },
+  { name: 'Fatuma Omar', rating: 5, text: 'Discovered so many new brands here. Everything from cosmetics to fragrance in one stunning platform!', product: 'Khamrah', image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&h=250&fit=crop' }
 ];

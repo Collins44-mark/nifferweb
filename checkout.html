@@ -191,7 +191,7 @@
               <div class="space-y-4 mb-6 max-h-56 overflow-y-auto pr-2">
                 ${cart.map(i => `
                   <div class="flex gap-4 items-center">
-                    <img src="${i.images[0]}" alt="" class="w-14 h-14 rounded-xl object-cover flex-shrink-0" onerror="this.src='${PLACEHOLDER_IMG}'">
+                    <img src="${i.images[0]}" alt="" class="w-14 h-14 rounded-xl object-cover flex-shrink-0">
                     <div class="flex-1 min-w-0">
                       <p class="font-medium text-sm truncate">${i.name}</p>
                       <p class="text-xs opacity-60">Qty: ${i.quantity} × ${formatPrice(i.price)}</p>
