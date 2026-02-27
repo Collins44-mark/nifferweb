@@ -125,20 +125,6 @@
         </div>
       </section>
 
-      <section class="py-20 px-4 md:px-8">
-        <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-12">
-            <p class="text-sm uppercase tracking-widest opacity-60 mb-2">Love Letters</p>
-            <h2 class="font-display text-3xl md:text-5xl font-bold gradient-text">What Our Customers Say</h2>
-          </div>
-          <div class="reviews-slider-wrap">
-            <div class="reviews-slides" id="reviews-slider">
-              <!-- Filled by JS -->
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section class="py-12 px-4 md:px-8">
         <div class="max-w-7xl mx-auto">
           <div class="glass rounded-3xl p-8 md:p-12 relative overflow-hidden">
@@ -313,41 +299,6 @@
       setInterval(() => goToSlide(currentIndex + 1), INTERVAL);
       startTyping();
     }
-
-    function initReviewsSlider() {
-      const testimonials = TESTIMONIALS.slice(0, 3);
-      const container = document.getElementById('reviews-slider');
-      if (!container) return;
-
-      const cardHtml = t => `
-        <div class="review-card">
-          <div class="review-oval-wrap">
-            <img src="${t.image}" alt="${t.name}" class="review-oval-img">
-          </div>
-          <p class="font-display font-semibold text-base mt-4 mb-1">${t.name}</p>
-          <p class="text-xs opacity-50 mb-3">Verified Buyer · ${t.product}</p>
-          <blockquote class="review-quote">"${t.text}"</blockquote>
-        </div>
-      `;
-
-      container.innerHTML = testimonials.map((t, i) => `
-        <div class="reviews-slide ${i === 0 ? 'active' : ''}" data-index="${i}">${cardHtml(t)}</div>
-      `).join('');
-
-      const slides = container.querySelectorAll('.reviews-slide');
-      let currentIndex = 0;
-      const INTERVAL = 6000;
-
-      function goToSlide(index) {
-        const nextIndex = ((index % slides.length) + slides.length) % slides.length;
-        slides[currentIndex].classList.remove('active');
-        slides[nextIndex].classList.add('active');
-        currentIndex = nextIndex;
-      }
-
-      setInterval(() => goToSlide(currentIndex + 1), INTERVAL);
-    }
-    initReviewsSlider();
 
     });
 

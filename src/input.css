@@ -810,6 +810,30 @@
     border-radius: 4px;
   }
 
+  /* Contact page - icon-only action buttons */
+  .contact-icon-btn {
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+  }
+
+  .contact-icon-btn:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .contact-icon-email {
+    background: linear-gradient(135deg, #e8b4b8 0%, #d4a5a5 100%);
+  }
+
+  .contact-icon-call {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+  }
+
+  .contact-icon-whatsapp {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  }
+
 }
 
 
