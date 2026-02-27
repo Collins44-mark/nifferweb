@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Niffer Cosmetics e-commerce website",
   "scripts": {
-    "build": "tailwindcss -i ./src/input.css -o ./css/output.css --minify",
+    "build": "tailwindcss -i ./src/input.css -o ./css/output.css --minify && node scripts/copy-to-public.js",
     "watch": "tailwindcss -i ./src/input.css -o ./css/output.css --watch"
   },
   "devDependencies": {
