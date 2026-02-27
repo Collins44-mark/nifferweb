@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niffer Cosmetics - Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body class="h-full">
+  <div class="min-h-full">
+    <nav class="glass fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <a href="index.html" class="font-display text-3xl font-bold gradient-text logo-text flex-shrink-0">Niffer Mall</a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="index.html" class="nav-link text-sm font-medium">Home</a>
+          <a href="shop.html" class="nav-link text-sm font-medium">Shop</a>
+          <a href="index.html#categories" class="nav-link text-sm font-medium">Categories</a>
+          <a href="about.html" class="nav-link text-sm font-medium">About</a>
+          <a href="contact.html" class="nav-link text-sm font-medium">Contact</a>
+        </div>
+        <div class="flex-1 max-w-md mx-4 hidden md:block search-bar-wrap">
+          <div class="search-bar-container">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <div class="search-input-wrap">
+              <input type="text" id="search-input" onkeyup="handleSearch(event)" onfocus="handleSearchFocus(); hideAnimatedPlaceholder('search-input')" onblur="handleSearchBlur('search-input')">
+              <div class="search-placeholder-animated" id="search-placeholder-animated" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div id="search-results-dropdown" class="search-results-dropdown"></div>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <a href="cart.html" class="p-2 hover:bg-white/50 rounded-full transition relative">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span id="cart-count" class="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs flex items-center justify-center text-white" style="background: var(--primary-color);">0</span>
+          </a>
+          <button class="md:hidden p-2 hover:bg-white/50 rounded-full transition" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-white/30 pt-4">
+        <div class="search-bar-wrap mb-4">
+          <div class="search-bar-mobile">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <div class="search-input-wrap">
+              <input type="text" id="search-input-mobile" onkeyup="handleSearchMobile(event)" onfocus="hideAnimatedPlaceholder('search-input-mobile')" onblur="handleSearchBlur('search-input-mobile')">
+              <div class="search-placeholder-animated" id="search-placeholder-mobile-animated" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div id="search-results-mobile" class="search-results-mobile"></div>
+        </div>
+        <div class="flex flex-col gap-3">
+          <a href="index.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Home</a>
+          <a href="shop.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Shop</a>
+          <a href="index.html#categories" class="py-2 px-4 rounded-lg hover:bg-white/50">Categories</a>
+          <a href="about.html" class="py-2 px-4 rounded-lg hover:bg-white/50">About</a>
+          <a href="contact.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pt-20 py-12 px-4 md:px-8 min-h-screen">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+          <h1 class="font-display text-4xl md:text-5xl font-bold gradient-text mb-4">Shop All Products</h1>
+          <p class="opacity-70">Discover your new beauty essentials</p>
+        </div>
+        <div class="glass rounded-2xl p-6 mb-8">
+          <div class="flex flex-wrap gap-4 items-center justify-between">
+            <div class="flex flex-wrap gap-2">
+              <button onclick="filterShop('all')" class="filter-chip active" data-cat="all">All</button>
+              <button onclick="filterShop('cosmetics')" class="filter-chip" data-cat="cosmetics">Cosmetics</button>
+              <button onclick="filterShop('fashion')" class="filter-chip" data-cat="fashion">Fashion</button>
+              <button onclick="filterShop('fragrance')" class="filter-chip" data-cat="fragrance">Fragrance</button>
+            </div>
+            <div class="flex gap-4">
+              <select id="price-filter" onchange="filterShop()" class="px-4 py-2 rounded-xl bg-white/70 border border-pink-200">
+                <option value="all">All Prices</option>
+                <option value="under50">Under Tsh 50,000</option>
+                <option value="50to150">Tsh 50,000 - 150,000</option>
+                <option value="over150">Over Tsh 150,000</option>
+              </select>
+              <select id="sort-filter" onchange="filterShop()" class="px-4 py-2 rounded-xl bg-white/70 border border-pink-200">
+                <option value="featured">Featured</option>
+                <option value="priceLow">Price: Low to High</option>
+                <option value="priceHigh">Price: High to Low</option>
+                <option value="rating">Top Rated</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm opacity-60 mb-6" id="results-count"></p>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6" id="products-grid">
+          <!-- Filled by JS -->
+        </div>
+        <div id="no-results" class="hidden text-center py-20">
+          <h3 class="font-display text-2xl font-bold mb-2">No products found</h3>
+          <p class="opacity-60 mb-6">Try adjusting your filters</p>
+          <button onclick="filterShop('all'); document.getElementById('price-filter').value='all'; document.getElementById('sort-filter').value='featured';" class="btn-secondary px-6 py-3 rounded-full">Reset Filters</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    function filterShop(cat) {
+      if (cat) {
+        document.querySelectorAll('.filter-chip').forEach(b => { b.classList.toggle('active', b.dataset.cat === cat); });
+        window.currentCat = cat;
+      }
+      const category = window.currentCat || new URLSearchParams(location.search).get('cat') || 'all';
+      const priceRange = document.getElementById('price-filter').value;
+      const sort = document.getElementById('sort-filter').value;
+
+      let list = [...PRODUCTS];
+      if (category !== 'all') list = list.filter(p => p.category === category);
+      if (priceRange === 'under50') list = list.filter(p => p.price < 50000);
+      else if (priceRange === '50to150') list = list.filter(p => p.price >= 50000 && p.price <= 150000);
+      else if (priceRange === 'over150') list = list.filter(p => p.price > 150000);
+      if (sort === 'priceLow') list.sort((a, b) => a.price - b.price);
+      else if (sort === 'priceHigh') list.sort((a, b) => b.price - a.price);
+      else if (sort === 'rating') list.sort((a, b) => b.rating - a.rating);
+
+      document.getElementById('results-count').textContent = list.length + ' products found';
+      document.getElementById('no-results').classList.toggle('hidden', list.length > 0);
+      document.getElementById('products-grid').innerHTML = list.map(p => `
+        <div class="glass-card rounded-2xl overflow-hidden">
+          <a href="product.html?id=${p.id}" class="product-image-container aspect-square flex block relative overflow-hidden">
+            <img src="${p.images[0]}" alt="${p.name}" class="product-img" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">
+            ${p.badge ? `<span class="absolute top-3 left-3 glass px-3 py-1 rounded-full text-xs font-medium">${p.badge}</span>` : ''}
+          </a>
+          <div class="p-4">
+            <p class="text-xs uppercase tracking-wider opacity-50 mb-1">${p.category}</p>
+            <a href="product.html?id=${p.id}" class="font-display font-semibold mb-2 block hover:opacity-70 transition">${p.name}</a>
+            <div class="flex items-center justify-between mt-3">
+              <div>
+                <span class="font-bold">${formatPrice(p.price)}</span>
+                ${p.originalPrice ? `<span class="text-xs line-through opacity-50 ml-1">${formatPrice(p.originalPrice)}</span>` : ''}
+              </div>
+              <button onclick="event.preventDefault(); addToCart(${p.id})" class="btn-primary p-2 rounded-full">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    const urlCat = new URLSearchParams(location.search).get('cat');
+    if (urlCat) {
+      window.currentCat = urlCat;
+      document.querySelectorAll('.filter-chip').forEach(b => { b.classList.toggle('active', b.dataset.cat === urlCat); });
+    }
+    filterShop();
+  </script>
+</body>
+</html>

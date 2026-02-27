@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niffer Cosmetics - Cart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/output.css">
+  <style>
+    .checkout-modal-backdrop {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .checkout-modal-backdrop.open {
+      opacity: 1; visibility: visible;
+    }
+    .checkout-modal {
+      position: fixed; left: 50%; top: 50%; z-index: 101;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: calc(100% - 2rem); max-width: 480px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      padding: 1.5rem;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    }
+    .checkout-modal-backdrop.open .checkout-modal {
+      opacity: 1; visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    @media (min-width: 640px) { .checkout-modal { padding: 2rem; } }
+  </style>
+</head>
+<body class="h-full">
+  <div class="min-h-full">
+    <nav class="glass fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <a href="index.html" class="font-display text-3xl font-bold gradient-text logo-text flex-shrink-0">Niffer Mall</a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="index.html" class="nav-link text-sm font-medium">Home</a>
+          <a href="shop.html" class="nav-link text-sm font-medium">Shop</a>
+          <a href="index.html#categories" class="nav-link text-sm font-medium">Categories</a>
+          <a href="about.html" class="nav-link text-sm font-medium">About</a>
+          <a href="contact.html" class="nav-link text-sm font-medium">Contact</a>
+        </div>
+        <div class="flex-1 max-w-md mx-4 hidden md:block search-bar-wrap">
+          <div class="search-bar-container">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <div class="search-input-wrap">
+              <input type="text" id="search-input" onkeyup="handleSearch(event)" onfocus="handleSearchFocus(); hideAnimatedPlaceholder('search-input')" onblur="handleSearchBlur('search-input')">
+              <div class="search-placeholder-animated" id="search-placeholder-animated" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div id="search-results-dropdown" class="search-results-dropdown"></div>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <a href="cart.html" class="p-2 hover:bg-white/50 rounded-full transition relative">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span id="cart-count" class="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs flex items-center justify-center text-white" style="background: var(--primary-color);">0</span>
+          </a>
+          <button class="md:hidden p-2 hover:bg-white/50 rounded-full transition" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-white/30 pt-4">
+        <div class="search-bar-wrap mb-4">
+          <div class="search-bar-mobile">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <div class="search-input-wrap">
+              <input type="text" id="search-input-mobile" onkeyup="handleSearchMobile(event)" onfocus="hideAnimatedPlaceholder('search-input-mobile')" onblur="handleSearchBlur('search-input-mobile')">
+              <div class="search-placeholder-animated" id="search-placeholder-mobile-animated" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div id="search-results-mobile" class="search-results-mobile"></div>
+        </div>
+        <div class="flex flex-col gap-3">
+          <a href="index.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Home</a>
+          <a href="shop.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Shop</a>
+          <a href="index.html#categories" class="py-2 px-4 rounded-lg hover:bg-white/50">Categories</a>
+          <a href="about.html" class="py-2 px-4 rounded-lg hover:bg-white/50">About</a>
+          <a href="contact.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pt-20 py-12 px-4 md:px-8 min-h-screen">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="font-display text-3xl md:text-4xl font-bold gradient-text mb-8">Your Cart</h1>
+        <div id="cart-content">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="checkout-modal-backdrop" class="checkout-modal-backdrop" onclick="closeCheckoutModal(event)">
+    <div class="checkout-modal" onclick="event.stopPropagation()">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="font-display text-xl font-bold gradient-text">Complete Your Order</h2>
+        <button onclick="closeCheckoutModal()" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-100 transition" aria-label="Close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 opacity-80">Full Name <span class="text-red-500">*</span></label>
+          <input type="text" id="checkout-name" required placeholder="Enter your full name" class="w-full px-4 py-3 rounded-xl bg-white/90 border border-pink-200/80 focus:border-pink-400 outline-none transition">
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1 opacity-80">Phone Number <span class="text-red-500">*</span></label>
+          <input type="tel" id="checkout-phone" required placeholder="e.g. 255712345678" class="w-full px-4 py-3 rounded-xl bg-white/90 border border-pink-200/80 focus:border-pink-400 outline-none transition">
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1 opacity-80">Delivery Address <span class="text-red-500">*</span></label>
+          <input type="text" id="checkout-address" required placeholder="Street, city, region" class="w-full px-4 py-3 rounded-xl bg-white/90 border border-pink-200/80 focus:border-pink-400 outline-none transition">
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1 opacity-80">Note <span class="opacity-60">(optional)</span></label>
+          <textarea id="checkout-note" rows="3" placeholder="Special instructions, delivery preferences..." class="w-full px-4 py-3 rounded-xl bg-white/90 border border-pink-200/80 focus:border-pink-400 outline-none transition resize-none"></textarea>
+        </div>
+        <div id="checkout-order-summary" class="py-4 border-t border-pink-100 space-y-2 text-sm">
+          <!-- Filled by JS when modal opens -->
+        </div>
+        <button type="submit" class="btn-primary w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Checkout via WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    const WHATSAPP_NUMBER = '919781328959';
+
+    function openCheckoutModal() {
+      const cart = getCart();
+      if (cart.length === 0) return;
+      const subtotal = getCartTotal();
+      const total = subtotal;
+
+      const summaryEl = document.getElementById('checkout-order-summary');
+      summaryEl.innerHTML = cart.map(i => `
+        <div class="flex justify-between"><span class="opacity-80">${i.name} × ${i.quantity}</span><span>${formatPrice(i.price * i.quantity)}</span></div>
+      `).join('') + `
+        <div class="flex justify-between font-bold pt-2"><span>Total</span><span class="gradient-text">${formatPrice(total)}</span></div>
+      `;
+
+      document.getElementById('checkout-modal-backdrop').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCheckoutModal(e) {
+      if (e && e.target !== e.currentTarget) return;
+      document.getElementById('checkout-modal-backdrop').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleCheckoutSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('checkout-name').value.trim();
+      const phone = document.getElementById('checkout-phone').value.trim();
+      const address = document.getElementById('checkout-address').value.trim();
+      const note = document.getElementById('checkout-note').value.trim();
+
+      if (!name || !phone || !address) {
+        showToast('Please fill in all required fields');
+        return;
+      }
+
+      try {
+        const cart = getCart();
+        const subtotal = getCartTotal();
+        const total = subtotal;
+
+        const productLines = cart.map(i => `Product: ${i.name}
+Quantity: ${i.quantity}
+Subtotal: ${formatPrice(i.price * i.quantity)}`).join('\n\n');
+
+        const message = `Hello Niffer Mall
+
+I would like to place an order:
+
+${productLines}
+
+Total: ${formatPrice(total)}
+
+Name: ${name}
+Phone: ${phone}
+Address: ${address}
+Note: ${note || 'N/A'}
+
+Please confirm availability. Thank you.`;
+
+        const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+        window.open(url, '_blank');
+
+        localStorage.removeItem('niffer_cart');
+        if (typeof updateCartCount === 'function') updateCartCount();
+        closeCheckoutModal();
+        if (typeof renderCart === 'function') renderCart();
+        showToast('Opening WhatsApp... Complete your order there!');
+      } catch (err) {
+        localStorage.removeItem('niffer_cart');
+        if (typeof updateCartCount === 'function') updateCartCount();
+        closeCheckoutModal();
+        if (typeof renderCart === 'function') renderCart();
+        showToast('Order submitted! Opening WhatsApp...');
+      }
+    }
+
+    function renderCart() {
+      const cart = getCart();
+      const subtotal = getCartTotal();
+      const total = subtotal;
+      const contentEl = document.getElementById('cart-content');
+      if (!contentEl) return;
+
+      if (cart.length === 0) {
+        contentEl.innerHTML = `
+          <div class="glass rounded-3xl p-12 text-center">
+            <p class="opacity-60 mb-6">Your cart is empty</p>
+            <a href="shop.html" class="btn-primary px-8 py-4 rounded-full font-medium inline-block">Start Shopping</a>
+          </div>
+        `;
+        return;
+      }
+
+      contentEl.innerHTML = `
+        <div class="grid lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2 space-y-4">
+            ${cart.map(item => `
+              <div class="glass-card rounded-2xl p-4 md:p-6 flex gap-4">
+                <a href="product.html?id=${item.id}" class="w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden flex-shrink-0">
+                  <img src="${item.images[0]}" alt="${item.name}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">
+                </a>
+                <div class="flex-1 min-w-0">
+                  <a href="product.html?id=${item.id}" class="font-display font-semibold mb-1 block hover:opacity-70">${item.name}</a>
+                  <p class="text-sm opacity-60 mb-3">${item.category}</p>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <button onclick="updateCartQuantity(${item.id}, -1); renderCart();" class="quantity-btn text-sm">−</button>
+                      <span class="w-8 text-center font-medium">${item.quantity}</span>
+                      <button onclick="updateCartQuantity(${item.id}, 1); renderCart();" class="quantity-btn text-sm">+</button>
+                    </div>
+                    <div class="flex items-center gap-4">
+                      <span class="font-bold">${formatPrice(item.price * item.quantity)}</span>
+                      <button onclick="removeFromCart(${item.id}); renderCart();" class="text-red-400 hover:text-red-600 text-sm">Remove</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="lg:col-span-1">
+            <div class="glass rounded-2xl p-6 sticky top-24">
+              <h3 class="font-display text-xl font-bold mb-6">Order Summary</h3>
+              <div class="space-y-3 mb-6">
+                <div class="flex justify-between"><span class="opacity-70">Subtotal (${cart.reduce((s,i)=>s+i.quantity,0)} items)</span><span>${formatPrice(subtotal)}</span></div>
+              </div>
+              <div class="border-t border-pink-100 pt-4 mb-6">
+                <div class="flex justify-between text-lg font-bold"><span>Total</span><span>${formatPrice(total)}</span></div>
+              </div>
+              <button type="button" onclick="openCheckoutModal()" class="btn-primary w-full py-4 rounded-full font-medium block text-center">Proceed to Checkout</button>
+              <a href="shop.html" class="block text-center py-3 mt-3 text-sm opacity-70 hover:opacity-100">Continue Shopping</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCheckoutModal(); });
+    renderCart();
+  </script>
+</body>
+</html>

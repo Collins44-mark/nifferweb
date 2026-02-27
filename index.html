@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niffer Cosmetics - Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body class="h-full">
+  <div class="min-h-full">
+    <nav class="glass fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <a href="index.html" class="font-display text-3xl font-bold gradient-text logo-text flex-shrink-0">Niffer Mall</a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="index.html" class="nav-link text-sm font-medium">Home</a>
+          <a href="shop.html" class="nav-link text-sm font-medium">Shop</a>
+          <a href="index.html#categories" class="nav-link text-sm font-medium">Categories</a>
+          <a href="about.html" class="nav-link text-sm font-medium">About</a>
+          <a href="contact.html" class="nav-link text-sm font-medium">Contact</a>
+        </div>
+        <div class="flex-1 max-w-md mx-4 hidden md:block search-bar-wrap">
+          <div class="search-bar-container">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <div class="search-input-wrap">
+              <input type="text" id="search-input" onkeyup="handleSearch(event)" onfocus="handleSearchFocus(); hideAnimatedPlaceholder('search-input')" onblur="handleSearchBlur('search-input')">
+              <div class="search-placeholder-animated" id="search-placeholder-animated" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div id="search-results-dropdown" class="search-results-dropdown"></div>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <a href="cart.html" class="p-2 hover:bg-white/50 rounded-full transition relative">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span id="cart-count" class="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs flex items-center justify-center text-white" style="background: var(--primary-color);">0</span>
+          </a>
+          <button class="md:hidden p-2 hover:bg-white/50 rounded-full transition" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-white/30 pt-4">
+        <div class="search-bar-wrap mb-4">
+          <div class="search-bar-mobile">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <div class="search-input-wrap">
+              <input type="text" id="search-input-mobile" onkeyup="handleSearchMobile(event)" onfocus="hideAnimatedPlaceholder('search-input-mobile')" onblur="handleSearchBlur('search-input-mobile')">
+              <div class="search-placeholder-animated" id="search-placeholder-mobile-animated" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div id="search-results-mobile" class="search-results-mobile"></div>
+        </div>
+        <div class="flex flex-col gap-3">
+          <a href="index.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Home</a>
+          <a href="shop.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Shop</a>
+          <a href="index.html#categories" class="py-2 px-4 rounded-lg hover:bg-white/50">Categories</a>
+          <a href="about.html" class="py-2 px-4 rounded-lg hover:bg-white/50">About</a>
+          <a href="contact.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pt-20">
+      <section class="hero-showcase">
+        <div class="hero-showcase-inner">
+          <div class="hero-slides" id="hero-slides"></div>
+        </div>
+      </section>
+
+      <section class="py-20 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-16">
+            <p class="text-sm uppercase tracking-widest opacity-60 mb-2">Best of Season</p>
+            <h2 class="font-display text-3xl md:text-5xl font-bold gradient-text">Trending This Week</h2>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8" id="featured-products">
+            <!-- Filled by JS -->
+          </div>
+          <div class="text-center mt-12">
+            <a href="shop.html" class="btn-secondary px-8 py-4 rounded-full font-medium inline-block">View All Products</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="categories" class="py-20 px-4 md:px-8 bg-gradient-to-b from-transparent via-amber-50/20 to-transparent">
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-16">
+            <p class="text-sm uppercase tracking-widest opacity-60 mb-2">Shop By</p>
+            <h2 class="font-display text-3xl md:text-5xl font-bold gradient-text">Our Collections</h2>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            <a href="shop.html?cat=cosmetics" class="glass-card rounded-2xl p-6 text-center block">
+              <div class="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden">
+                <img src="images/skinluxy-showergel.jpg" alt="Cosmetics" class="product-img w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=128&h=128&fit=crop'">
+              </div>
+              <h3 class="font-display font-semibold text-lg mb-1">Cosmetics</h3>
+              <p class="text-sm opacity-60">Premium Beauty</p>
+              <p class="text-xs opacity-40 mt-2">11 items</p>
+            </a>
+            <a href="shop.html?cat=fashion" class="glass-card rounded-2xl p-6 text-center block">
+              <div class="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden">
+                <img src="images/pashmina.jpg" alt="Fashion" class="product-img w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=128&h=128&fit=crop'">
+              </div>
+              <h3 class="font-display font-semibold text-lg mb-1">Fashion</h3>
+              <p class="text-sm opacity-60">Curated Styles</p>
+              <p class="text-xs opacity-40 mt-2">3 items</p>
+            </a>
+            <a href="shop.html?cat=fragrance" class="glass-card rounded-2xl p-6 text-center block">
+              <div class="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden">
+                <img src="images/khamrah.jpg" alt="Fragrance" class="product-img w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1541643600914-78b084683601?w=128&h=128&fit=crop'">
+              </div>
+              <h3 class="font-display font-semibold text-lg mb-1">Fragrance</h3>
+              <p class="text-sm opacity-60">Luxury Scents</p>
+              <p class="text-xs opacity-40 mt-2">6 items</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-16">
+            <p class="text-sm uppercase tracking-widest opacity-60 mb-2">Love Letters</p>
+            <h2 class="font-display text-3xl md:text-5xl font-bold gradient-text">What Our Customers Say</h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" id="testimonials">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+      </section>
+
+      <section class="py-12 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="glass rounded-3xl p-8 md:p-12 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-pink-200/30 via-purple-200/20 to-pink-200/30"></div>
+            <div class="relative text-center">
+              <p class="text-sm uppercase tracking-widest opacity-60 mb-2">Limited Time Offer</p>
+              <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">SEASON SALE: Up to 30% Off Selected Items</h2>
+              <p class="text-lg opacity-80 mb-6">Use code <span class="font-bold px-3 py-1 glass rounded-lg">NIFFERVIP</span> at checkout</p>
+              <a href="shop.html" class="btn-primary px-8 py-4 rounded-full font-medium inline-block">Shop the Sale</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-4 md:px-8">
+        <div class="max-w-3xl mx-auto text-center">
+          <div class="glass rounded-3xl p-8 md:p-12">
+            <h2 class="font-display text-2xl md:text-4xl font-bold mb-4">Join the Beauty Circle</h2>
+            <p class="opacity-80 mb-8">Subscribe for exclusive offers, beauty tips, and early access to new products.</p>
+            <form onsubmit="event.preventDefault(); showToast('Thank you for subscribing!'); this.reset();" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input type="email" required placeholder="Enter your email" class="flex-1 px-6 py-4 rounded-full bg-white/80 border border-pink-200 focus:border-pink-400 transition">
+              <button type="submit" class="btn-primary px-8 py-4 rounded-full font-medium whitespace-nowrap">Subscribe</button>
+            </form>
+            <p class="text-xs opacity-50 mt-4">No spam, unsubscribe anytime</p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="glass-dark py-16 px-4 md:px-8 mt-12">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+            <div class="col-span-2 md:col-span-1">
+              <h3 class="font-display text-2xl font-bold gradient-text mb-4">Niffer Cosmetics</h3>
+              <p class="text-sm opacity-70 mb-4">Beauty that celebrates your natural glow. Organic, cruelty-free, and sustainable.</p>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-4">Shop</h4>
+              <ul class="space-y-2 text-sm opacity-70">
+                <li><a href="shop.html" class="hover:opacity-100 transition">All Products</a></li>
+                <li><a href="shop.html?cat=cosmetics" class="hover:opacity-100 transition">Cosmetics</a></li>
+                <li><a href="shop.html?cat=fashion" class="hover:opacity-100 transition">Fashion</a></li>
+                <li><a href="shop.html?cat=fragrance" class="hover:opacity-100 transition">Fragrance</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-4">Help</h4>
+              <ul class="space-y-2 text-sm opacity-70">
+                <li><a href="contact.html" class="hover:opacity-100 transition">Contact Us</a></li>
+                <li><a href="#" class="hover:opacity-100 transition">FAQ</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-4">Company</h4>
+              <ul class="space-y-2 text-sm opacity-70">
+                <li><a href="about.html" class="hover:opacity-100 transition">About Us</a></li>
+                <li><a href="#" class="hover:opacity-100 transition">Careers</a></li>
+                <li><a href="#" class="hover:opacity-100 transition">Sustainability</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm opacity-50">© 2024 Niffer Cosmetics. All rights reserved.</p>
+            <div class="flex gap-6 text-sm opacity-50">
+              <a href="#" class="hover:opacity-100 transition">Privacy Policy</a>
+              <a href="#" class="hover:opacity-100 transition">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    document.getElementById('featured-products').innerHTML = PRODUCTS.slice(0, 8).map(p => `
+      <div class="glass-card rounded-2xl overflow-hidden">
+        <a href="product.html?id=${p.id}" class="product-image-container aspect-square flex block relative overflow-hidden">
+          <img src="${p.images[0]}" alt="${p.name}" class="product-img" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">
+          ${p.badge ? `<span class="absolute top-3 left-3 glass px-3 py-1 rounded-full text-xs font-medium">${p.badge}</span>` : ''}
+        </a>
+        <div class="p-4 md:p-6">
+          <p class="text-xs uppercase tracking-wider opacity-50 mb-1">${p.category}</p>
+          <a href="product.html?id=${p.id}" class="font-display font-semibold mb-2 block hover:opacity-70 transition">${p.name}</a>
+          <div class="flex items-center justify-between mt-3">
+            <div>
+              <span class="font-bold">${formatPrice(p.price)}</span>
+              ${p.originalPrice ? `<span class="text-sm line-through opacity-50 ml-2">${formatPrice(p.originalPrice)}</span>` : ''}
+            </div>
+            <button onclick="event.preventDefault(); addToCart(${p.id})" class="btn-primary p-2 rounded-full">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    (function() {
+      const container = document.getElementById('hero-slides');
+      const products = PRODUCTS.slice(0, 6);
+      const catLabel = c => c.charAt(0).toUpperCase() + c.slice(1);
+      container.innerHTML = products.map((p, i) => `
+        <div class="hero-slide ${i === 0 ? 'active' : ''}" data-index="${i}">
+          <div class="hero-content">
+            <div class="hero-label-wrap">
+              <p class="hero-tag">The Niffer Edit</p>
+              <span class="hero-label-line"></span>
+            </div>
+            <h1 class="hero-heading gradient-text">Explore the Niffer World</h1>
+            <p class="hero-desc">Luxury Beauty and fashion, curated for modern world.</p>
+            <a href="shop.html" class="hero-btn">Shop Now</a>
+          </div>
+          <a href="product.html?id=${p.id}" class="hero-image-wrapper">
+            <div class="hero-image-outer">
+              <div class="hero-image-container">
+                <img src="${p.images[0].startsWith('images/') ? p.images[0] : p.images[0].replace('w=600', 'w=1000').replace('h=600', 'h=1000').replace('fit=crop', 'fit=crop')}" alt="${p.name}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">
+              </div>
+              <span class="hero-image-badge"><span class="hero-badge-text"></span></span>
+            </div>
+            <div class="hero-image-meta">
+              <p class="hero-product-tag">${catLabel(p.category)}</p>
+              <h3 class="hero-product-title">${p.name}</h3>
+              <p class="hero-product-line">${p.description.split('.')[0]}.</p>
+            </div>
+          </a>
+        </div>
+      `).join('');
+      const slides = container.querySelectorAll('.hero-slide');
+      let currentIndex = 0;
+      const INTERVAL = 6000;
+
+      let typeTimeout = null;
+      let typeInterval = null;
+      const typeText = 'New Arrivals !!';
+
+      function runTyping(badge) {
+        const textEl = badge?.querySelector('.hero-badge-text');
+        if (!textEl) return;
+        textEl.textContent = '';
+        let i = 0;
+        typeInterval = setInterval(() => {
+          if (i < typeText.length) {
+            textEl.textContent += typeText[i];
+            i++;
+          } else {
+            clearInterval(typeInterval);
+            typeInterval = null;
+            document.querySelectorAll('.hero-image-badge .hero-badge-text').forEach(el => {
+              if (el !== textEl && !el.textContent) el.textContent = typeText;
+            });
+            typeTimeout = setTimeout(() => runTyping(badge), 800);
+          }
+        }, 70);
+      }
+
+      function startTyping() {
+        if (typeTimeout) clearTimeout(typeTimeout);
+        if (typeInterval) clearInterval(typeInterval);
+        const badge = container.querySelector('.hero-slide.active .hero-image-badge');
+        if (badge) {
+          badge.style.opacity = '0';
+          requestAnimationFrame(() => {
+            badge.style.transition = 'opacity 0.3s ease';
+            badge.style.opacity = '1';
+            typeTimeout = setTimeout(() => runTyping(badge), 400);
+          });
+        }
+      }
+
+      function goToSlide(index) {
+        const nextIndex = ((index % slides.length) + slides.length) % slides.length;
+        slides[currentIndex].classList.remove('active');
+        slides[nextIndex].classList.add('active');
+        currentIndex = nextIndex;
+        setTimeout(startTyping, 50);
+      }
+      setInterval(() => goToSlide(currentIndex + 1), INTERVAL);
+      startTyping();
+    })();
+
+    document.getElementById('testimonials').innerHTML = TESTIMONIALS.slice(0, 4).map(t => `
+      <div class="glass-card rounded-2xl p-6 md:p-8 transition hover:shadow-xl hover:-translate-y-1">
+        <div class="flex items-center gap-4 mb-5">
+          <img src="${t.image}" alt="${t.name}" class="w-14 h-14 rounded-full object-cover object-center" style="box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <div>
+            <p class="font-display font-semibold text-lg">${t.name}</p>
+            <p class="text-xs opacity-60">Verified Buyer</p>
+          </div>
+        </div>
+        <p class="star-filled mb-4">${renderStars(t.rating)}</p>
+        <p class="text-[#2a2a2a]/85 leading-relaxed mb-4" style="line-height: 1.7;">"${t.text}"</p>
+        <p class="text-xs opacity-50 border-t border-pink-100 pt-4">Purchased: ${t.product}</p>
+      </div>
+    `).join('');
+
+  </script>
+</body>
+</html>

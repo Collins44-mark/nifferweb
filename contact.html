@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niffer Cosmetics - Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body class="h-full">
+  <div class="min-h-full">
+    <nav class="glass fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <a href="index.html" class="font-display text-3xl font-bold gradient-text logo-text flex-shrink-0">Niffer Mall</a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="index.html" class="nav-link text-sm font-medium">Home</a>
+          <a href="shop.html" class="nav-link text-sm font-medium">Shop</a>
+          <a href="index.html#categories" class="nav-link text-sm font-medium">Categories</a>
+          <a href="about.html" class="nav-link text-sm font-medium">About</a>
+          <a href="contact.html" class="nav-link text-sm font-medium">Contact</a>
+        </div>
+        <div class="flex-1 max-w-md mx-4 hidden md:block search-bar-wrap">
+          <div class="search-bar-container">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <div class="search-input-wrap">
+              <input type="text" id="search-input" onkeyup="handleSearch(event)" onfocus="handleSearchFocus(); hideAnimatedPlaceholder('search-input')" onblur="handleSearchBlur('search-input')">
+              <div class="search-placeholder-animated" id="search-placeholder-animated" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div id="search-results-dropdown" class="search-results-dropdown"></div>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <a href="cart.html" class="p-2 hover:bg-white/50 rounded-full transition relative">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span id="cart-count" class="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs flex items-center justify-center text-white" style="background: var(--primary-color);">0</span>
+          </a>
+          <button class="md:hidden p-2 hover:bg-white/50 rounded-full transition" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-white/30 pt-4">
+        <div class="search-bar-wrap mb-4">
+          <div class="search-bar-mobile">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <div class="search-input-wrap">
+              <input type="text" id="search-input-mobile" onkeyup="handleSearchMobile(event)" onfocus="hideAnimatedPlaceholder('search-input-mobile')" onblur="handleSearchBlur('search-input-mobile')">
+              <div class="search-placeholder-animated" id="search-placeholder-mobile-animated" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div id="search-results-mobile" class="search-results-mobile"></div>
+        </div>
+        <div class="flex flex-col gap-3">
+          <a href="index.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Home</a>
+          <a href="shop.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Shop</a>
+          <a href="index.html#categories" class="py-2 px-4 rounded-lg hover:bg-white/50">Categories</a>
+          <a href="about.html" class="py-2 px-4 rounded-lg hover:bg-white/50">About</a>
+          <a href="contact.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pt-20 py-12 px-4 md:px-8 min-h-screen">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h1 class="font-display text-4xl md:text-5xl font-bold gradient-text mb-4">Contact Us</h1>
+          <p class="opacity-70 max-w-lg mx-auto">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="glass rounded-2xl p-6 md:p-8">
+            <h2 class="font-display text-xl font-bold mb-6">Send a Message</h2>
+            <form onsubmit="event.preventDefault(); showToast('Message sent! We will be in touch soon.'); this.reset();" class="space-y-4">
+              <div class="grid grid-cols-2 gap-4">
+                <input type="text" required placeholder="First name" class="px-4 py-3 rounded-xl bg-white/80 border border-pink-200">
+                <input type="text" required placeholder="Last name" class="px-4 py-3 rounded-xl bg-white/80 border border-pink-200">
+              </div>
+              <input type="email" required placeholder="Email address" class="w-full px-4 py-3 rounded-xl bg-white/80 border border-pink-200">
+              <select class="w-full px-4 py-3 rounded-xl bg-white/80 border border-pink-200">
+                <option value="">Select a topic</option>
+                <option value="order">Order Inquiry</option>
+                <option value="product">Product Question</option>
+                <option value="returns">Returns & Refunds</option>
+                <option value="other">Other</option>
+              </select>
+              <textarea required placeholder="Your message..." rows="5" class="w-full px-4 py-3 rounded-xl bg-white/80 border border-pink-200 resize-none"></textarea>
+              <button type="submit" class="btn-primary w-full py-4 rounded-full font-medium">Send Message</button>
+            </form>
+          </div>
+          <div class="space-y-6">
+            <div class="glass rounded-2xl p-6">
+              <h3 class="font-medium mb-2">Email Us</h3>
+              <p class="opacity-70 text-sm">hello@niffercosmetics.com</p>
+            </div>
+            <div class="glass rounded-2xl p-6">
+              <h3 class="font-medium mb-2">Call Us</h3>
+              <p class="opacity-70 text-sm">+255 700 000 000</p>
+            </div>
+            <div class="glass rounded-2xl p-6">
+              <h3 class="font-medium mb-2">Visit Us</h3>
+              <p class="opacity-70 text-sm">123 Beauty Lane, Dar es Salaam, Tanzania</p>
+            </div>
+            <div class="glass rounded-2xl p-6">
+              <h3 class="font-medium mb-2">Business Hours</h3>
+              <p class="opacity-70 text-sm">Mon - Fri: 9AM - 6PM EAT</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+</html>
