@@ -9,10 +9,32 @@
     --text-color: #2B2520;
     --primary-color: #D4A5A5;
     --secondary-color: #8B7355;
+    /* Fluid typography - scales 320px to 1920px */
+    --text-xs: clamp(0.6875rem, 0.65rem + 0.2vw, 0.75rem);
+    --text-sm: clamp(0.8125rem, 0.75rem + 0.3vw, 0.875rem);
+    --text-base: clamp(0.9375rem, 0.85rem + 0.4vw, 1rem);
+    --text-lg: clamp(1.0625rem, 0.95rem + 0.55vw, 1.125rem);
+    --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+    --text-2xl: clamp(1.5rem, 1.25rem + 1.25vw, 2rem);
+    --text-3xl: clamp(1.75rem, 1.4rem + 1.75vw, 2.25rem);
+    --text-4xl: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+    --text-5xl: clamp(2.5rem, 2rem + 2.5vw, 3.75rem);
+    /* Touch target minimum */
+    --touch-min: 44px;
+    /* Safe areas for notched devices */
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
   }
 
   * {
     box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
 
   html, body {
@@ -26,6 +48,24 @@
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, var(--bg-color) 0%, #F5F0EB 50%, #EBE6E0 100%);
     color: var(--text-color);
+    padding-left: var(--safe-left);
+    padding-right: var(--safe-right);
+  }
+
+  /* Touch-friendly tap targets for key interactive elements */
+  .touch-device .filter-chip,
+  .touch-device .quantity-btn,
+  .touch-device .btn-primary,
+  .touch-device .btn-secondary {
+    min-height: var(--touch-min);
+    padding: 0.75rem 1.25rem;
+  }
+
+  /* Responsive images */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 }
 
@@ -35,12 +75,19 @@
   }
 
   .logo-text {
-    font-size: 1.75rem;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
   }
-  @media (min-width: 768px) {
-    .logo-text {
-      font-size: 2.25rem;
-    }
+
+  /* Nav safe area for notched devices */
+  .glass.fixed {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+
+  /* Main content padding for safe areas */
+  main {
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   .glass {
@@ -191,19 +238,14 @@
     color: #F59E0B;
   }
 
-  /* Hero Showcase - Left-aligned two-column, modern ecommerce */
+  /* Hero Showcase - responsive, safe-area aware */
   .hero-showcase {
     background: #f8f6f3;
-    min-height: 80vh;
-    padding: 6.25rem 1.5rem;
+    min-height: min(80vh, calc(100vh - env(safe-area-inset-top)));
+    padding: clamp(4rem, 10vw, 6.25rem) clamp(1rem, 4vw, 2rem);
+    padding-top: max(clamp(4rem, 10vw, 6.25rem), env(safe-area-inset-top));
     display: flex;
     align-items: center;
-  }
-
-  @media (min-width: 768px) {
-    .hero-showcase {
-      padding: 6.25rem 2rem;
-    }
   }
 
   .hero-showcase-inner {
@@ -215,13 +257,7 @@
 
   .hero-slides {
     position: relative;
-    min-height: 400px;
-  }
-
-  @media (min-width: 768px) {
-    .hero-slides {
-      min-height: 480px;
-    }
+    min-height: clamp(320px, 50vw, 480px);
   }
 
   .hero-slide {
@@ -287,17 +323,11 @@
 
   .hero-heading {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
+    font-size: clamp(1.75rem, 4vw, 2.875rem);
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.02em;
     margin: 0 0 1rem;
-  }
-
-  @media (min-width: 768px) {
-    .hero-heading {
-      font-size: 2.875rem;
-    }
   }
 
   .hero-desc {
@@ -665,6 +695,35 @@
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(232, 180, 184, 0.2);
+  }
+
+  /* Responsive section padding - scales with viewport */
+  .section-padding {
+    padding-left: clamp(1rem, 4vw, 2rem);
+    padding-right: clamp(1rem, 4vw, 2rem);
+    padding-top: clamp(3rem, 6vw, 5rem);
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  /* Fluid heading scale */
+  .heading-fluid {
+    font-size: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .heading-fluid-lg {
+    font-size: clamp(2rem, 5vw, 3.75rem);
+  }
+}
+
+/* Shop filters - responsive layout */
+@media (max-width: 639px) {
+  .shop-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .shop-filter-selects {
+    flex-direction: column;
   }
 }
 
