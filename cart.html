@@ -161,7 +161,7 @@
 
       const summaryEl = document.getElementById('checkout-order-summary');
       summaryEl.innerHTML = cart.map(i => `
-        <div class="flex justify-between"><span class="opacity-80">${i.name} × ${i.quantity}</span><span>${formatPrice(i.price * i.quantity)}</span></div>
+        <div class="flex justify-between"><span class="opacity-80">${i.name}${i.size || i.color ? ' (' + [i.size, i.color].filter(Boolean).join(', ') + ')' : ''} × ${i.quantity}</span><span>${formatPrice(i.price * i.quantity)}</span></div>
       `).join('') + `
         <div class="flex justify-between font-bold pt-2"><span>Total</span><span class="gradient-text">${formatPrice(total)}</span></div>
       `;
@@ -193,9 +193,12 @@
         const subtotal = getCartTotal();
         const total = subtotal;
 
-        const productLines = cart.map(i => `Product: ${i.name}
+        const productLines = cart.map(i => {
+          const variant = [i.size ? 'Size: ' + i.size : null, i.color ? 'Color: ' + i.color : null].filter(Boolean).join(', ');
+          return `Product: ${i.name}${variant ? ' (' + variant + ')' : ''}
 Quantity: ${i.quantity}
-Subtotal: ${formatPrice(i.price * i.quantity)}`).join('\n\n');
+Subtotal: ${formatPrice(i.price * i.quantity)}`;
+        }).join('\n\n');
 
         const message = `Hello Niffer Mall
 
@@ -256,16 +259,16 @@ Please confirm availability. Thank you.`;
                 </a>
                 <div class="flex-1 min-w-0">
                   <a href="product.html?id=${item.id}" class="font-display font-semibold mb-1 block hover:opacity-70">${item.name}</a>
-                  <p class="text-sm opacity-60 mb-3">${item.category}</p>
+                  <p class="text-sm opacity-60 mb-3">${item.category}${item.size || item.color ? ' · ' + [item.size ? 'Size ' + item.size : null, item.color ? 'Color ' + item.color : null].filter(Boolean).join(', ') : ''}</p>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <button onclick="updateCartQuantity(${item.id}, -1); renderCart();" class="quantity-btn text-sm">−</button>
+                      <button onclick="updateCartQuantity(${item.id}, -1, ${item.size ? "'" + item.size.replace(/'/g, "\\'") + "'" : 'undefined'}, ${item.color ? "'" + item.color.replace(/'/g, "\\'") + "'" : 'undefined'}); renderCart();" class="quantity-btn text-sm">−</button>
                       <span class="w-8 text-center font-medium">${item.quantity}</span>
-                      <button onclick="updateCartQuantity(${item.id}, 1); renderCart();" class="quantity-btn text-sm">+</button>
+                      <button onclick="updateCartQuantity(${item.id}, 1, ${item.size ? "'" + item.size.replace(/'/g, "\\'") + "'" : 'undefined'}, ${item.color ? "'" + item.color.replace(/'/g, "\\'") + "'" : 'undefined'}); renderCart();" class="quantity-btn text-sm">+</button>
                     </div>
                     <div class="flex items-center gap-4">
                       <span class="font-bold">${formatPrice(item.price * item.quantity)}</span>
-                      <button onclick="removeFromCart(${item.id}); renderCart();" class="text-red-400 hover:text-red-600 text-sm">Remove</button>
+                      <button onclick="removeFromCart(${item.id}, ${item.size ? "'" + item.size.replace(/'/g, "\\'") + "'" : 'undefined'}, ${item.color ? "'" + item.color.replace(/'/g, "\\'") + "'" : 'undefined'}); renderCart();" class="text-red-400 hover:text-red-600 text-sm">Remove</button>
                     </div>
                   </div>
                 </div>

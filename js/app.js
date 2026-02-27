@@ -12,26 +12,28 @@ function saveCart(cart) {
   updateCartCount();
 }
 
-function addToCart(productId, quantity = 1) {
+function addToCart(productId, quantity = 1, size, color) {
   const product = PRODUCTS.find(p => p.id === productId);
   if (!product) return;
   const cart = getCart();
-  const existing = cart.find(i => i.id === productId);
+  const match = (i) => i.id === productId && (size ? i.size === size : !i.size) && (color ? i.color === color : !i.color);
+  const existing = cart.find(match);
   if (existing) existing.quantity += quantity;
-  else cart.push({ ...product, quantity });
+  else cart.push({ ...product, quantity, size: size || undefined, color: color || undefined });
   saveCart(cart);
-  showToast(product.name + ' added to cart');
+  const variant = [size, color].filter(Boolean).join(', ');
+  showToast(product.name + (variant ? ` (${variant})` : '') + ' added to cart');
 }
 
-function removeFromCart(productId) {
-  const cart = getCart().filter(i => i.id !== productId);
+function removeFromCart(productId, size, color) {
+  const cart = getCart().filter(i => !(i.id === productId && (size ? i.size === size : !i.size) && (color ? i.color === color : !i.color)));
   saveCart(cart);
   return cart;
 }
 
-function updateCartQuantity(productId, change) {
+function updateCartQuantity(productId, change, size, color) {
   const cart = getCart();
-  const item = cart.find(i => i.id === productId);
+  const item = cart.find(i => i.id === productId && (size ? i.size === size : !i.size) && (color ? i.color === color : !i.color));
   if (!item) return;
   item.quantity += change;
   if (item.quantity <= 0) {

@@ -24,6 +24,14 @@ const PRODUCTS = [
   { id: 20, name: 'Armaf Yum Yum', price: 90000, category: 'fragrance', rating: 5, reviews: 189, description: 'Playful and sweet fragrance for everyday delight.', images: ['images/armaf-yum-yum.jpg'] }
 ];
 
+const FASHION_COLORS = [
+  { name: 'Black', hex: '#1a1a1a' },
+  { name: 'Navy', hex: '#1e3a5f' },
+  { name: 'White', hex: '#f5f5f5' },
+  { name: 'Burgundy', hex: '#722f37' },
+  { name: 'Gray', hex: '#6b7280' }
+];
+
 const CATEGORIES = [
   { name: 'Cosmetics', slug: 'cosmetics', count: 11, description: 'Premium Beauty' },
   { name: 'Fashion', slug: 'fashion', count: 3, description: 'Curated Styles' },
