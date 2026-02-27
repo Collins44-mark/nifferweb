@@ -17,7 +17,7 @@ Place your product images in this folder. Use these exact filenames so they disp
 
 ## Fashion
 - `pashmina.jpg`
-- `abaya.jpg`
+- `Abaya.jpg`
 - `birkins.jpg`
 
 ## Fragrance

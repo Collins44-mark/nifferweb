@@ -13,7 +13,7 @@ const PRODUCTS = [
   { id: 11, name: 'Amila Shea Body Oil', price: 115000, category: 'cosmetics', rating: 5, reviews: 134, description: 'Nourishing shea body oil for soft, supple skin.', images: ['images/amila-shea-body-oil.jpg'] },
   // Fashion
   { id: 12, name: 'Pashmina', price: 150000, category: 'fashion', rating: 5, reviews: 67, description: 'Luxurious pashmina shawl for elegant style.', images: ['images/pashmina.jpg'] },
-  { id: 13, name: 'Abaya', price: 120000, category: 'fashion', rating: 5, reviews: 89, description: 'Elegant abaya for modest, sophisticated wear.', images: ['images/abaya.jpg'] },
+  { id: 13, name: 'Abaya', price: 120000, category: 'fashion', rating: 5, reviews: 89, description: 'Elegant abaya for modest, sophisticated wear.', images: ['images/Abaya.jpg'] },
   { id: 14, name: 'Birkins', price: 50000, category: 'fashion', rating: 5, reviews: 34, description: 'Iconic luxury handbag for timeless elegance.', images: ['images/birkins.jpg'] },
   // Fragrance
   { id: 15, name: '9am', price: 55000, category: 'fragrance', rating: 5, reviews: 112, description: 'Fresh and captivating fragrance for everyday elegance.', images: ['images/9am.jpg'] },

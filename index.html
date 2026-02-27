@@ -46,16 +46,6 @@
         </div>
       </div>
       <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-white/30 pt-4">
-        <div class="search-bar-wrap mb-4">
-          <div class="search-bar-mobile">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            <div class="search-input-wrap">
-              <input type="text" id="search-input-mobile" onkeyup="handleSearchMobile(event)" onfocus="hideAnimatedPlaceholder('search-input-mobile')" onblur="handleSearchBlur('search-input-mobile')">
-              <div class="search-placeholder-animated" id="search-placeholder-mobile-animated" aria-hidden="true"></div>
-            </div>
-          </div>
-          <div id="search-results-mobile" class="search-results-mobile"></div>
-        </div>
         <div class="flex flex-col gap-3">
           <a href="index.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Home</a>
           <a href="shop.html" class="py-2 px-4 rounded-lg hover:bg-white/50">Shop</a>
@@ -67,6 +57,18 @@
     </nav>
 
     <main class="pt-20">
+      <div id="mobile-search-bar" class="mobile-search-below-nav md:hidden">
+        <div class="search-bar-wrap mobile-search-bar-wrap">
+          <div class="search-bar-mobile mobile-search-pill">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <div class="search-input-wrap">
+              <input type="text" id="search-input-mobile" onkeyup="handleSearchMobile(event)" onfocus="hideAnimatedPlaceholder('search-input-mobile')" onblur="handleSearchBlur('search-input-mobile')">
+              <div class="search-placeholder-animated" id="search-placeholder-mobile-animated" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div id="search-results-mobile" class="search-results-mobile"></div>
+        </div>
+      </div>
       <section class="hero-showcase">
         <div class="hero-showcase-inner">
           <div class="hero-slides" id="hero-slides"></div>
@@ -125,12 +127,15 @@
 
       <section class="py-20 px-4 md:px-8">
         <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-16">
+          <div class="text-center mb-12">
             <p class="text-sm uppercase tracking-widest opacity-60 mb-2">Love Letters</p>
             <h2 class="font-display text-3xl md:text-5xl font-bold gradient-text">What Our Customers Say</h2>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" id="testimonials">
-            <!-- Filled by JS -->
+          <div class="reviews-slider-wrap">
+            <div class="reviews-slider-track" id="reviews-slider">
+              <!-- Filled by JS -->
+            </div>
+            <div class="reviews-dots" id="reviews-dots"></div>
           </div>
         </div>
       </section>
@@ -212,7 +217,9 @@
   <script src="js/app.js"></script>
   <script src="js/nav.js"></script>
   <script>
-    document.getElementById('featured-products').innerHTML = PRODUCTS.slice(0, 8).map(p => `
+    document.addEventListener('DOMContentLoaded', function() {
+    const fp = document.getElementById('featured-products');
+    if (fp) fp.innerHTML = PRODUCTS.slice(0, 8).map(p => `
       <div class="glass-card rounded-2xl overflow-hidden">
         <a href="product.html?id=${p.id}" class="product-image-container aspect-square flex block relative overflow-hidden">
           <img src="${p.images[0]}" alt="${p.name}" class="product-img" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">
@@ -234,8 +241,8 @@
       </div>
     `).join('');
 
-    (function() {
-      const container = document.getElementById('hero-slides');
+    const container = document.getElementById('hero-slides');
+    if (container) {
       const products = PRODUCTS.slice(0, 6);
       const catLabel = c => c.charAt(0).toUpperCase() + c.slice(1);
       container.innerHTML = products.map((p, i) => `
@@ -315,22 +322,84 @@
       }
       setInterval(() => goToSlide(currentIndex + 1), INTERVAL);
       startTyping();
-    })();
+    }
 
-    document.getElementById('testimonials').innerHTML = TESTIMONIALS.slice(0, 4).map(t => `
-      <div class="glass-card rounded-2xl p-6 md:p-8 transition hover:shadow-xl hover:-translate-y-1">
-        <div class="flex items-center gap-4 mb-5">
-          <img src="${t.image}" alt="${t.name}" class="w-14 h-14 rounded-full object-cover object-center" style="box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-          <div>
-            <p class="font-display font-semibold text-lg">${t.name}</p>
-            <p class="text-xs opacity-60">Verified Buyer</p>
+    function initReviewsSlider() {
+      const testimonials = TESTIMONIALS.slice(0, 4);
+      const slider = document.getElementById('reviews-slider');
+      const dotsContainer = document.getElementById('reviews-dots');
+      if (!slider || !dotsContainer) return;
+
+      const cardHtml = t => `
+        <div class="review-card">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="${t.image}" alt="${t.name}" class="w-14 h-14 rounded-full object-cover object-center flex-shrink-0">
+            <div class="min-w-0">
+              <p class="font-display font-semibold text-lg">${t.name}</p>
+              <p class="text-xs opacity-60">Verified Buyer</p>
+            </div>
           </div>
+          <p class="star-filled mb-4">${renderStars(t.rating)}</p>
+          <p class="review-text">"${t.text}"</p>
+          <p class="text-xs opacity-50 border-t border-pink-100 pt-4 mt-auto">Purchased: ${t.product}</p>
         </div>
-        <p class="star-filled mb-4">${renderStars(t.rating)}</p>
-        <p class="text-[#2a2a2a]/85 leading-relaxed mb-4" style="line-height: 1.7;">"${t.text}"</p>
-        <p class="text-xs opacity-50 border-t border-pink-100 pt-4">Purchased: ${t.product}</p>
-      </div>
-    `).join('');
+      `;
+
+      slider.innerHTML = testimonials.map((t, i) => `
+        <div class="reviews-slide" data-index="${i}">${cardHtml(t)}</div>
+      `).join('');
+
+      dotsContainer.innerHTML = testimonials.map((_, i) => `
+        <button type="button" class="reviews-dot ${i === 0 ? 'active' : ''}" data-index="${i}" aria-label="Go to review ${i + 1}"></button>
+      `).join('');
+
+      const slides = slider.querySelectorAll('.reviews-slide');
+      const dots = dotsContainer.querySelectorAll('.reviews-dot');
+      let currentIndex = 0;
+      let touchStartX = 0, touchEndX = 0;
+
+      function getVisibleCount() {
+        const w = window.innerWidth;
+        if (w >= 1024) return 3;
+        if (w >= 768) return 2;
+        return 1;
+      }
+
+      function goTo(index) {
+        currentIndex = ((index % slides.length) + slides.length) % slides.length;
+        const offset = -currentIndex * (100 / slides.length);
+        slider.style.transform = `translateX(${offset}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+      }
+
+      slides.forEach((s, i) => {
+        s.style.flex = `0 0 ${100 / getVisibleCount()}%`;
+      });
+
+      dots.forEach(d => {
+        d.addEventListener('click', () => goTo(parseInt(d.dataset.index, 10)));
+      });
+
+      slider.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+      slider.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) goTo(currentIndex + (diff > 0 ? 1 : -1));
+      }, { passive: true });
+
+      window.addEventListener('resize', () => {
+        slides.forEach((s, i) => {
+          s.style.flex = `0 0 ${100 / getVisibleCount()}%`;
+        });
+        goTo(currentIndex);
+      });
+
+      setInterval(() => goTo(currentIndex + 1), 4500);
+      goTo(0);
+    }
+    initReviewsSlider();
+
+    });
 
   </script>
 </body>
